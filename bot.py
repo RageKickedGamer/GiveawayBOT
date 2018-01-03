@@ -129,6 +129,14 @@ async def support():
     embed.add_field(name = "Why Help?", value = "So you can help us suggest improvements, and give us some advise!")
     embed.set_footer(text = "Don't Forget to Upvote Us!")
     await bot.say(embed = embed)
+    
+@bot.command()
+async def updates():
+    color = ''.join([random.choice('0123456789ABCDEF') for x in range(6)])
+    color = int(color, 16)
+    embed=discord.Embed(title=":tada: Updates :tada:", colour = discord.Colour(value=color))
+    embed.add_field(name = "v0.1", value = "We are currently working on a more reliable coutdown, next in line will be making it so that it choses multiple winners!")
+    await bot.say(embed = embed)
 
 if not os.environ.get('TOKEN'):
         print("No Token Found")
