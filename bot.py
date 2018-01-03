@@ -113,7 +113,7 @@ async def create(ctx):
         color = int(color, 16)
         embed=discord.Embed(title=":tada: __**Giveaway Ended!**__ :tada:", colour = discord.Colour(value=color))
         embed.add_field(name = "Winners: ", value = "{} Winner(s)".format(g_winners.content))
-        embed.add_field(name = "Winner: ", value = "{} Has Won!".format(winner))
+        embed.add_field(name = "Winner: ", value = "{}".format(winner))
         embed.add_field(name = "Prize: ", value = "{}".format(g_prize.content))
         embed.set_footer(text = "Better Luck Next Time!")
         await bot.edit_message(give_away, embed = embed)
