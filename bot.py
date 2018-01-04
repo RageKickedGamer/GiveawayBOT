@@ -58,7 +58,7 @@ async def create(ctx):
                       "`Ex. If I'm Giving away Free Steam Keys I Would say Free Steam Keys`")
         g_prize = await bot.wait_for_message(author = ctx.message.author)
         await asyncio.sleep(1)
-        await bot.say("Giving away  {}".format(g_prize.content))
+        await bot.say("Giving away {}".format(g_prize.content))
         await asyncio.sleep(1)
         await bot.say(":tada: Almost Done Please Confirm Below")
         await asyncio.sleep(1)
