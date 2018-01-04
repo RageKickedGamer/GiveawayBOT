@@ -39,7 +39,7 @@ async def create(ctx):
         await asyncio.sleep(1)
         await bot.say("How long will the Giveaway Be?\n"
                       "\n"
-                      "`Ex. 5 Minutes, You Say 5`")
+                      "`Ex. 5 Minutes, You Say 5 (Please Use ONLY Whole Numbers)`")
         g_end = await bot.wait_for_message(author = ctx.message.author)
         await asyncio.sleep(1)
         await bot.say(":tada: Giveaway set to end {} Minutes after the start".format(g_end.content))
