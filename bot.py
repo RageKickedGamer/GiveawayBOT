@@ -137,6 +137,11 @@ async def updates():
     embed=discord.Embed(title=":tada: Updates :tada:", colour = discord.Colour(value=color))
     embed.add_field(name = "v0.1", value = "We are currently working on a more reliable coutdown, next in line will be making it so that it choses multiple winners!")
     await bot.say(embed = embed)
+    
+@bot.event
+async def on_command_error(error, ctx):
+    if isinstance(error, commands.CommandNotFound):
+        await bot.send_message(ctx.message.channel, ":x: | Command Not Found!")
 
 if not os.environ.get('TOKEN'):
         print("No Token Found")
