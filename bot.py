@@ -47,9 +47,10 @@ async def create(ctx):
         await bot.say("How many winner will be selected?\n"
                       "\n"
                       "`Pick a Number 1 (More Winners Coming Soon!)`")
-        g_winners = await bot.wait_for_message(author = ctx.message.author)
+        msg = await bot.wait_for_message(author = ctx.message.author)
+        g_winners = int(msg.content)
         await asyncio.sleep(1)
-        await bot.say(":tada: {} Winner(s) will be Chosen".format(g_winners.content))
+        await bot.say(":tada: {} Winner(s) will be Chosen".format(g_winners))
         await asyncio.sleep(1)
         await bot.say("What are you giving away?\n"
                       "\n"
@@ -63,7 +64,7 @@ async def create(ctx):
         await asyncio.sleep(1)
         await bot.say("You are Giving away `{}` with `{}` Winners, that will Last `{}` Minutes?\n"
                       "\n"
-                      "`If This Is Correct Say Yes. If Not Say No (You Will Have To Start Over)`".format(g_prize.content, g_winners.content, g_end.content))
+                      "`If This Is Correct Say Yes. If Not Say No (You Will Have To Start Over)`".format(g_prize.content, g_winners, g_end.content))
         response = await bot.wait_for_message(author = ctx.message.author, channel = ctx.message.channel)
         response = response.content.lower()
 
@@ -82,7 +83,7 @@ async def create(ctx):
             color = int(color, 16)
             embed=discord.Embed(title=":tada: __**{} Giveaway!**__ :tada:".format(g_prize.content), colour = discord.Colour(value=color))
             embed.add_field(name = "How long is it?", value = "{} Minutes".format(g_end.content))
-            embed.add_field(name = "Winners: ", value = "{} Winner(s)".format(g_winners.content))
+            embed.add_field(name = "Winners: ", value = "{} Winner(s)".format(g_winners))
             embed.add_field(name = "Time Left: ", value = "{} Seconds".format(mue), inline = True)
             embed.set_footer(text = "Add The Reaction to join!")
             give_away = await bot.send_message(g_channel, embed = embed)
@@ -96,7 +97,7 @@ async def create(ctx):
 
                 embed=discord.Embed(title=":tada: __**{} Giveaway!**__ :tada:".format(g_prize.content), colour = discord.Colour(value=color))
                 embed.add_field(name = "How long is it?", value = "{} Minutes".format(g_end.content))
-                embed.add_field(name = "Winners: ", value = "{} Winner(s)".format(g_winners.content))
+                embed.add_field(name = "Winners: ", value = "{} Winner(s)".format(g_winners))
                 embed.add_field(name = "Time Left: ", value = "{} Seconds".format(mue), inline = True)
                 embed.set_footer(text = "Add The Reaction to join!")
 
@@ -107,17 +108,28 @@ async def create(ctx):
                 ga_users.append(user.mention)
             ga_bot = ctx.message.server.get_member('396464677032427530')
             ga_users.remove(ga_bot.mention)
-            winner = random.choice(ga_users)
+            if len(ga_users) == 0:
+                error = discord.Embed(title=":warning: Error!",description="The giveaway ended with no participants, could not chose a winner",color=0xff0000)
+                await ctx.bot.say(embed=error)
+            else:
+                winner_list=[]
+                for loop in range(g_winners):
+                    winner = random.choice(ga_users)
+                    ga_users.remove(winner)
+                    winner_list.append(winner)
+                    msg = ""
         #Winning Embed
         color = ''.join([random.choice('0123456789ABCDEF') for x in range(6)])
         color = int(color, 16)
         embed=discord.Embed(title=":tada: __**Giveaway Ended!**__ :tada:", colour = discord.Colour(value=color))
-        embed.add_field(name = "Winners: ", value = "{} Winner(s)".format(g_winners.content))
-        embed.add_field(name = "Winner: ", value = "{}".format(winner))
+        embed.add_field(name = "Winners: ", value = "{} Winner(s)".format(g_winners))
+        embed.add_field(name = "Winner(s): ", value = "\n".join(winner_list))
         embed.add_field(name = "Prize: ", value = "{}".format(g_prize.content))
         embed.set_footer(text = "Better Luck Next Time!")
         await bot.edit_message(give_away, embed = embed)
-        await bot.send_message(g_channel, ":tada: {} Has Won {}! Come Claim Your Prize! :tada:".format(winner, g_prize.content))
+        for winner in winner_list:
+            msg += ", " + winner
+        await bot.send_message(g_channel, ", ".join(winner_list) + " has won **{}**".format(g_prize.content))
 
 @bot.command()
 async def support():
