@@ -18,7 +18,7 @@ async def on_ready():
     print('User Count:',len(set(bot.get_all_members())))
     print("Py Lib Version: %s"%discord.__version__)
     print("===================================")
-    await bot.change_presence(game = discord.Game(name='Giveaways'))
+    await bot.change_presence(game = discord.Game(name='Giveaways | +gcreate'))
 
 @bot.command(pass_context = True)
 async def create(ctx):
@@ -39,7 +39,7 @@ async def create(ctx):
         await asyncio.sleep(1)
         await bot.say("How long will the Giveaway Be?\n"
                       "\n"
-                      "`Ex. 5 Minutes, You Say 5 (Please Use ONLY Whole Numbers)`")
+                      "`Ex. 5 Minutes, You Say 5 (Please Use ONLY Whole Numbers, No .5, .2 Numbers)`")
         g_end = await bot.wait_for_message(author = ctx.message.author)
         await asyncio.sleep(1)
         await bot.say(":tada: Giveaway set to end {} Minutes after the start".format(g_end.content))
