@@ -202,7 +202,8 @@ async def updates():
     color = int(color, 16)
     embed=discord.Embed(title=":tada: Updates :tada:", colour = discord.Colour(value=color))
     embed.add_field(name = "v0.1", value = "We are now VERY close to let the bot select Multiple winners. Stay Tuned!!")
-    embed.add_field(name = "Updates!: ", value = "Added a command +gstart to make giveaways faster!")
+    embed.add_field(name = "Updates!: ", value = "Added a command +gstart to make giveaways faster!/n"
+                   "Usage: +gstart <Time> <Winners> <Prize>), Ex. +gstart 1 1 Nothing")
     await bot.say(embed = embed)
     
 @bot.event
