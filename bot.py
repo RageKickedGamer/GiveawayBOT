@@ -130,6 +130,60 @@ async def create(ctx):
         for winner in winner_list:
             msg += ", " + winner
         await bot.send_message(g_channel, ", ".join(winner_list) + " has won **{}**".format(g_prize.content))
+        
+@bot.command(hidden = True, pass_context = True)
+async def start(ctx, time = None, winners = None, prize = None):
+    """Create a Giveaway But Faster!"""
+    if time == None:
+        await bot.say(":x: | No Time Was Inputted!")
+    if winners == None:
+        await bot.say(":x: | No Amount Of Winners Were Inputted!")
+    if prize == None:
+        await bot.say(":x: | No Prize?!")
+    else:
+        time = int(time)
+        c_time = time * 60
+        mue = c_time 
+        color = ''.join([random.choice('0123456789ABCDEF') for x in range(6)])
+        color = int(color, 16)
+        embed=discord.Embed(title=":tada: __**{} Giveaway!**__ :tada:".format(prize), colour = discord.Colour(value=color))
+        embed.add_field(name = "Prize: ",value = "{}".format(prize))
+        embed.add_field(name = "Winners: ", value = "{} Winner(s)".format(winners))
+        embed.add_field(name = "Time Left: ", value = "{} Seconds".format(mue), inline = True)
+        embed.set_footer(text = "Add The Reaction to join!")
+        give_away = await bot.say(embed = embed)
+        ga_message = await bot.add_reaction(give_away, "\U0001f389")
+        for loop in range (c_time):
+            await asyncio.sleep(1)
+            c_time -= 1
+
+            mue = c_time
+            
+
+            embed=discord.Embed(title=":tada: __**{} Giveaway!**__ :tada:".format(prize), colour = discord.Colour(value=color))
+            embed.add_field(name = "Prize: ",value = "{}".format(prize))
+            embed.add_field(name = "Winners: ", value = "{} Winner(s)".format(winners))
+            embed.add_field(name = "Time Left: ", value = "{} Seconds".format(mue), inline = True)
+            embed.set_footer(text = "Add The Reaction to join!")
+
+            await bot.edit_message(give_away, embed = embed)
+        ga_message = await bot.get_message(give_away.channel, give_away.id)
+        ga_users=[]
+        for user in await bot.get_reaction_users(ga_message.reactions[0]):
+            ga_users.append(user.mention)
+        ga_bot = ctx.message.server.get_member('396464677032427530')
+        ga_users.remove(ga_bot.mention)
+        winner = random.choice(ga_users)
+        #Winning Embed
+        color = ''.join([random.choice('0123456789ABCDEF') for x in range(6)])
+        color = int(color, 16)
+        embed=discord.Embed(title=":tada: __**Giveaway Ended!**__ :tada:", colour = discord.Colour(value=color))
+        embed.add_field(name = "Winners: ", value = "{} Winner(s)".format(winners))
+        embed.add_field(name = "Winner: ", value = "{}".format(winner))
+        embed.add_field(name = "Prize: ", value = "{}".format(prize))
+        embed.set_footer(text = "Better Luck Next Time!")
+        await bot.edit_message(give_away, embed = embed)
+        await bot.say(":tada: {} Has Won {}! :tada:".format(winner, prize))
 
 @bot.command()
 async def support():
@@ -148,12 +202,15 @@ async def updates():
     color = int(color, 16)
     embed=discord.Embed(title=":tada: Updates :tada:", colour = discord.Colour(value=color))
     embed.add_field(name = "v0.1", value = "We are now VERY close to let the bot select Multiple winners. Stay Tuned!!")
+    embed.add_field(name = "Updates!: ", value = "Added a command +gstart to make giveaways faster!")
     await bot.say(embed = embed)
     
 @bot.event
 async def on_command_error(error, ctx):
     if isinstance(error, commands.CommandNotFound):
         await bot.send_message(ctx.message.channel, ":x: | Command Not Found!")
+    else:
+        await bot.send_message(ctx.message.channel, ":x: | An Error Occurred!")
 
 if not os.environ.get('TOKEN'):
         print("No Token Found")
