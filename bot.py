@@ -201,7 +201,7 @@ async def support():
     color = ''.join([random.choice('0123456789ABCDEF') for x in range(6)])
     color = int(color, 16)
     embed=discord.Embed(title=":tada: Come Support Development! :tada:", colour = discord.Colour(value=color))
-    embed.add_field(name = "Dev Server: ", value = 'https://discord.gg/aXZMuCN')
+    embed.add_field(name = "Dev Server: ", value = 'https://discord.gg/X4CJdEM')
     embed.add_field(name = "Why Help?", value = "So you can help us suggest improvements, and give us some advise!")
     embed.set_footer(text = "Don't Forget to Upvote Us!")
     await bot.say(embed = embed)
@@ -211,9 +211,10 @@ async def updates():
     color = ''.join([random.choice('0123456789ABCDEF') for x in range(6)])
     color = int(color, 16)
     embed=discord.Embed(title=":tada: Updates :tada:", colour = discord.Colour(value=color))
-    embed.add_field(name = "v0.1", value = "We are now VERY close to let the bot select Multiple winners. Stay Tuned!!")
+    embed.add_field(name = "v0.1", value = "Multiple Winners are now added! Also if a giveaway stop and never finishes its because the bot auto turns off to refresh!\n"
+                   "Also, we have added a new command named 'start'. type `+ghelp start` to see how it works!")
     embed.add_field(name = "Updates!: ", value = "Added a command +gstart to make giveaways faster!/n"
-                   "Usage: +gstart <Time> <Winners> <Prize>), Ex. +gstart 1 1 Nothing")
+                   "Usage: +gstart <Time> <Winners> <Prize>), Ex. +gstart 1m 1 Nothing")
     await bot.say(embed = embed)
     
 @bot.event
