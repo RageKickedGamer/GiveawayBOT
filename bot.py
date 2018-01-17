@@ -7,6 +7,7 @@ from random import randint
 import os
 
 bot=commands.Bot(command_prefix = '+g')
+logs = discord.Object("403024766056792074")
 
 @bot.event
 async def on_ready():
@@ -169,7 +170,7 @@ async def start(ctx, duration = None, winners = None, prize = None):
         ga_users=[]
         for user in await bot.get_reaction_users(ga_message.reactions[0]):
             ga_users.append(user.mention)
-        ga_bot = ctx.message.server.get_member('402667978518429696') #giveaways id 396464677032427530
+        ga_bot = ctx.message.server.get_member('396464677032427530') #giveaways id 396464677032427530
         ga_users.remove(ga_bot.mention)
         if len(ga_users) == 0:
             error = discord.Embed(title=":warning: Error!",description="The giveaway ended with no participants, could not chose a winner",color=0xff0000)
@@ -216,11 +217,20 @@ async def updates():
     await bot.say(embed = embed)
     
 @bot.event
-async def on_command_error(error, ctx):
-    if isinstance(error, commands.CommandNotFound):
-        await bot.send_message(ctx.message.channel, ":x: | Command Not Found!")
-    else:
-        await bot.send_message(ctx.message.channel, ":x: | An Error Occurred!")
+async def on_server_join(server):
+    embed = discord.Embed(title="__Joined: {}__".format(server.name), color=0x00ff00, timestamp = datetime.datetime.utcnow())
+    embed.add_field(name="Owned By", value=server.owner, inline=True)
+    embed.add_field(name="Total Members", value="{0} members".format(server.member_count), inline=True)
+    embed.add_field(name="Server Region", value=server.region, inline=True)
+    await bot.send_message(logs, embed=embed)
+
+@bot.event
+async def on_server_remove(server):
+    embed = discord.Embed(title="__Removed From: {}__".format(server.name), color=0xff0000, timestamp = datetime.datetime.utcnow())
+    embed.add_field(name="Owned By", value=server.owner, inline=True)
+    embed.add_field(name="Total Members", value="{0} members".format(server.member_count), inline=True)
+    embed.add_field(name="Server Region", value=server.region, inline=True)
+    await bot.send_message(logs, embed=embed)
 
 if not os.environ.get('TOKEN'):
         print("No Token Found")
