@@ -98,7 +98,7 @@ class Create():
                 ga_users=[]
                 for user in await ctx.bot.get_reaction_users(ga_message.reactions[0]):
                     ga_users.append(user.mention)
-                ga_bot = ctx.message.server.get_member('402667978518429696') #giveaways id 396464677032427530
+                ga_bot = ctx.message.server.get_member('396464677032427530') #giveaways id 396464677032427530
                 ga_users.remove(ga_bot.mention)
                 if len(ga_users) == 0:
                     error = discord.Embed(title=":warning: Error!",description="The giveaway ended with no participants, could not chose a winner",color=0xff0000)
