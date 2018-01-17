@@ -13,6 +13,7 @@ bot = commands.Bot(command_prefix = commands.when_mentioned_or("+g"))
 '''bot.remove_command("help")'''
 startup_extensions = ["cogs.create", "cogs.start"]
 logs = discord.Object("403024766056792074")
+dbltoken = os.environ.get('DBLT')
 
 for extension in startup_extensions:
     try:
@@ -41,6 +42,21 @@ async def on_ready():
         await asyncio.sleep(10)
         await bot.change_presence(game=discord.Game(name='g+updates'))
         await asyncio.sleep(25)
+        
+    url = f"https://discordbots.org/api/bots/396464677032427530/stats"
+    headers = {
+        'Authorization': dbltoken,
+        'content-type': 'application/json'
+    }
+    payload = {
+        'server_count': len(bot.guilds)
+    }
+    async with aiohttp.ClientSession() as session:
+        async with session.post(url, data=json.dumps(payload), headers=headers) as dblpost:
+            print(dblpost.status)
+
+    bot._last_result = None
+    bot.session = aiohttp.ClientSession()
 
 @bot.command()
 async def support():
