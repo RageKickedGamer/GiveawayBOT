@@ -26,8 +26,21 @@ async def on_ready():
     print("===================================")
     print("Logged in as: %s"%bot.user.name)
     print("ID: %s"%bot.user.id)
+    print('Server count:', str(len(bot.servers)))
+    print('User Count:',len(set(bot.get_all_members())))
     print("Py Lib Version: %s"%discord.__version__)
     print("===================================")
+    server = len(bot.servers)
+    users = sum(1 for _ in bot.get_all_members())
+    while 1==1:
+        await bot.change_presence(game=discord.Game(name='With {} servers'.format(server)))
+        await asyncio.sleep(10)
+        await bot.change_presence(game=discord.Game(name='With {} users'.format(users)))
+        await asyncio.sleep(10)                         
+        await bot.change_presence(game=discord.Game(name='My Prefix = g+'))
+        await asyncio.sleep(10)
+        await bot.change_presence(game=discord.Game(name='g+updates'))
+        await asyncio.sleep(25)
 
 @bot.command()
 async def support():
