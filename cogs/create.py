@@ -7,7 +7,7 @@ from random import randint
 import datetime
 import asyncio
 
-bot = commands.Bot(command_prefix = commands.when_mentioned_or("m."))
+bot = commands.Bot(command_prefix = commands.when_mentioned_or("+g"))
 
 class Create():
     """Create a Giveaway (Interactive)"""
