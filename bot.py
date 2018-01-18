@@ -48,7 +48,7 @@ async def on_ready():
         'content-type': 'application/json'
     }
     payload = {
-        'server_count': len(bot.guilds)
+        'server_count': len(bot.servers)
     }
     async with aiohttp.ClientSession() as session:
         async with session.post(url, data=json.dumps(payload), headers=headers) as dblpost:
