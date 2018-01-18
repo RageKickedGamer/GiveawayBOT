@@ -10,7 +10,7 @@ from discord.ext.commands import Bot
 from random import randint
 
 bot = commands.Bot(command_prefix = commands.when_mentioned_or("+g"))
-startup_extensions = ["cogs.create", "cogs.start", "cogs.api"]
+startup_extensions = ["cogs.create", "cogs.start"]
 logs = discord.Object("403024766056792074")
 
 for extension in startup_extensions:
