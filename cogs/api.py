@@ -7,12 +7,11 @@ from discord.ext import commands
 from discord.ext.commands import Bot
 
 bot = commands.Bot(command_prefix = commands.when_mentioned_or("+g"))
+dbltoken = os.environ.get('DBLT')
+url = "https://discordbots.org/api/bots/396464677032427530/stats"
+headers = {"Authorization" : dbltoken}
 
 class api():
-    
-    dbltoken = os.environ.get('DBLT')
-    url = "https://discordbots.org/api/bots/396464677032427530/stats"
-    headers = {"Authorization" : dbltoken}
 
     async def on_ready():
         payload = {"server_count"  : len(bot.servers)}
