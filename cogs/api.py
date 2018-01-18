@@ -11,7 +11,7 @@ BOT_ID = "396464677032427530"
 AUTH = os.environ.get('DBLT')
 token = DBLT
 url = "https://discordbots.org/api/bots/{}/stats".format(BOT_ID)
-headers = {"Authorization" : AUTH}
+headers = {"Authorization" : token}
 
 class api():
     
