@@ -41,22 +41,6 @@ async def on_ready():
         await asyncio.sleep(10)
         await bot.change_presence(game=discord.Game(name='g+updates'))
         await asyncio.sleep(25)
-        
-dbltoken = os.environ.get('DBLT')
-url = "https://discordbots.org/api/bots/" + bot.user.id + "/stats"
-headers = {"Authorization" : dbltoken}
-
-async def on_ready():
-    payload = {"server_count"  : len(bot.servers)}
-    requests.post(url, data=payload, headers=headers)
-
-async def on_server_join(server):
-    payload = {"server_count"  : len(bot.servers)}
-    requests.post(url, data=payload, headers=headers)
-
-async def on_server_remove(server):
-    payload = {"server_count"  : len(bot.servers)}
-    requests.post(url, data=payload, headers=headers)
 
 @bot.command()
 async def support():
