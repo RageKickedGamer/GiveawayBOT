@@ -11,7 +11,7 @@ bot = commands.Bot(command_prefix = commands.when_mentioned_or("+g"))
 class api():
     
     dbltoken = os.environ.get('DBLT')
-    url = "https://discordbots.org/api/bots/" + bot.user.id + "/stats"
+    url = "https://discordbots.org/api/bots/396464677032427530/stats"
     headers = {"Authorization" : dbltoken}
 
     async def on_ready():
