@@ -15,17 +15,17 @@ headers = {"Authorization" : AUTH}
 class api():
     @bot.event
     async def on_ready():
-        payload = {"server_count"  : len(ctx.bot.servers)}
+        payload = {"server_count"  : len(bot.servers)}
         requests.post(url, data=payload, headers=headers)
     
     @bot.event
     async def on_server_join(server):
-        payload = {"server_count"  : len(ctx.bot.servers)}
+        payload = {"server_count"  : len(bot.servers)}
         requests.post(url, data=payload, headers=headers)
     
     @bot.event
     async def on_server_remove(server):
-        payload = {"server_count"  : len(ctx.bot.servers)}
+        payload = {"server_count"  : len(bot.servers)}
         requests.post(url, data=payload, headers=headers)
       
 
