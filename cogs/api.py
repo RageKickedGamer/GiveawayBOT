@@ -1,6 +1,12 @@
 import aiohttp
 import os
 import requests
+import discord
+
+from discrd.ext import commands
+from discord.ext.commands import Bot
+
+bot = commands.Bot(command_prefix = commands.when_mentioned_or("+g"))
 
 class api():
     
