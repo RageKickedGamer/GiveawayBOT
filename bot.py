@@ -3,6 +3,7 @@ import random
 import time
 import datetime
 import asyncio
+import requests
 import os
 
 from discord.ext import commands
@@ -12,7 +13,6 @@ from random import randint
 bot = commands.Bot(command_prefix = commands.when_mentioned_or("+g"))
 startup_extensions = ["cogs.create", "cogs.start"]
 logs = discord.Object("403024766056792074")
-dbltoken = os.environ.get('DBLT')
 
 for extension in startup_extensions:
     try:
@@ -42,20 +42,21 @@ async def on_ready():
         await bot.change_presence(game=discord.Game(name='g+updates'))
         await asyncio.sleep(25)
         
-    url = f"https://discordbots.org/api/bots/396464677032427530/stats"
-    headers = {
-        'Authorization': dbltoken,
-        'content-type': 'application/json'
-    }
-    payload = {
-        'server_count': len(bot.servers)
-    }
-    async with aiohttp.ClientSession() as session:
-        async with session.post(url, data=json.dumps(payload), headers=headers) as dblpost:
-            print(dblpost.status)
+dbltoken = os.environ.get('DBLT')
+url = "https://discordbots.org/api/bots/" + bot.user.id + "/stats"
+headers = {"Authorization" : dbltoken}
 
-    bot._last_result = None
-    bot.session = aiohttp.ClientSession()
+async def on_ready():
+    payload = {"server_count"  : len(bot.servers)}
+    requests.post(url, data=payload, headers=headers)
+
+async def on_server_join(server):
+    payload = {"server_count"  : len(bot.servers)}
+    requests.post(url, data=payload, headers=headers)
+
+async def on_server_remove(server):
+    payload = {"server_count"  : len(bot.servers)}
+    requests.post(url, data=payload, headers=headers)
 
 @bot.command()
 async def support():
