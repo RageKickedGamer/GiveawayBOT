@@ -3,7 +3,6 @@ import random
 import time
 import datetime
 import asyncio
-import requests
 import os
 
 from discord.ext import commands
