@@ -9,7 +9,7 @@ from discord.ext import commands
 bot = commands.Bot(command_prefix = commands.when_mentioned_or ("+g"))
 BOT_ID = "396464677032427530"
 AUTH = os.environ.get('DBLT')
-token = DBLT
+token = AUTH
 url = "https://discordbots.org/api/bots/{}/stats".format(BOT_ID)
 headers = {"Authorization" : token}
 
