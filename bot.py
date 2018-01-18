@@ -4,6 +4,7 @@ import time
 import datetime
 import asyncio
 import os
+import aiohttp
 
 from discord.ext import commands
 from discord.ext.commands import Bot
@@ -12,6 +13,10 @@ from random import randint
 bot = commands.Bot(command_prefix = commands.when_mentioned_or("+g"))
 startup_extensions = ["cogs.create", "cogs.start"]
 logs = discord.Object("403024766056792074")
+#Discord Bots List API
+dbltoken = os.environ.get('DBLT')
+url = "https://discordbots.org/api/bots/396464677032427530/stats"
+headers = {"Authorization" : dbltoken}
 
 for extension in startup_extensions:
     try:
@@ -29,6 +34,9 @@ async def on_ready():
     print('User Count:',len(set(bot.get_all_members())))
     print("Py Lib Version: %s"%discord.__version__)
     print("===================================")
+    payload = {"server_count"  : len(bot.servers)}
+    async with aiohttp.ClientSession() as aioclient:
+            await aioclient.post(url, data=payload, headers=headers)
     server = len(bot.servers)
     users = sum(1 for _ in bot.get_all_members())
     while 1==1:
@@ -70,6 +78,9 @@ async def on_server_join(server):
     embed.add_field(name="Total Members", value="{0} members".format(server.member_count), inline=True)
     embed.add_field(name="Server Region", value=server.region, inline=True)
     await bot.send_message(logs, embed=embed)
+    payload = {"server_count"  : len(bot.servers)}
+    async with aiohttp.ClientSession() as aioclient:
+            await aioclient.post(url, data=payload, headers=headers)
 
 @bot.event
 async def on_server_remove(server):
@@ -78,6 +89,9 @@ async def on_server_remove(server):
     embed.add_field(name="Total Members", value="{0} members".format(server.member_count), inline=True)
     embed.add_field(name="Server Region", value=server.region, inline=True)
     await bot.send_message(logs, embed=embed)
+    payload = {"server_count"  : len(bot.servers)}
+    async with aiohttp.ClientSession() as aioclient:
+            await aioclient.post(url, data=payload, headers=headers)
 
 if not os.environ.get('TOKEN'):
         print("No Token Found")
