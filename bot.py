@@ -44,9 +44,9 @@ async def on_ready():
         await asyncio.sleep(10)
         await bot.change_presence(game=discord.Game(name='With {} users'.format(users)))
         await asyncio.sleep(10)                         
-        await bot.change_presence(game=discord.Game(name='My Prefix = g+'))
+        await bot.change_presence(game=discord.Game(name='My Prefix = +g'))
         await asyncio.sleep(10)
-        await bot.change_presence(game=discord.Game(name='g+updates'))
+        await bot.change_presence(game=discord.Game(name='+gupdates'))
         await asyncio.sleep(25)
 
 @bot.command()
