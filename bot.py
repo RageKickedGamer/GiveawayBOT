@@ -37,16 +37,16 @@ async def on_ready():
     payload = {"server_count"  : len(bot.servers)}
     async with aiohttp.ClientSession() as aioclient:
             await aioclient.post(url, data=payload, headers=headers)
-    server = len(bot.servers)
-    users = sum(1 for _ in bot.get_all_members())
+    '''server = len(bot.servers)
+    users = sum(1 for _ in bot.get_all_members())''''
     while 1==1:
-        await bot.change_presence(game=discord.Game(name='With {} servers'.format(server)))
+        await bot.change_presence(game=discord.Game(name='CHECK OUT OUR WEBSITE)
         await asyncio.sleep(10)
-        await bot.change_presence(game=discord.Game(name='With {} users'.format(users)))
+        await bot.change_presence(game=discord.Game(name='MAJOR UPDATES COMING SOON!)
         await asyncio.sleep(10)                         
         await bot.change_presence(game=discord.Game(name='My Prefix = +g'))
         await asyncio.sleep(10)
-        await bot.change_presence(game=discord.Game(name='+gupdates'))
+        await bot.change_presence(game=discord.Game(name='JOIN MY OFFICIAL SERVER!'))
         await asyncio.sleep(25)
 
 @bot.command()
