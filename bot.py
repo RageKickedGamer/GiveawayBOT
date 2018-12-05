@@ -40,9 +40,9 @@ async def on_ready():
     '''server = len(bot.servers)
     users = sum(1 for _ in bot.get_all_members())''''
     while 1==1:
-        await bot.change_presence(game=discord.Game(name='CHECK OUT OUR WEBSITE)
+        await bot.change_presence(game=discord.Game(name='CHECK OUT OUR WEBSITE))
         await asyncio.sleep(10)
-        await bot.change_presence(game=discord.Game(name='MAJOR UPDATES COMING SOON!)
+        await bot.change_presence(game=discord.Game(name='MAJOR UPDATES COMING SOON!))
         await asyncio.sleep(10)                         
         await bot.change_presence(game=discord.Game(name='My Prefix = +g'))
         await asyncio.sleep(10)
