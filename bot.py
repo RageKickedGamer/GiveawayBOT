@@ -44,7 +44,7 @@ async def on_ready():
         await asyncio.sleep(10)
         await bot.change_presence(game=discord.Game(name='MAJOR UPDATES COMING SOON!))
         await asyncio.sleep(10)                         
-        await bot.change_presence(game=discord.Game(name='My Prefix = +g'))
+        await bot.change_presence(game=discord.Game(name='CHECK OUT OUT PAGE ON DBL'))
         await asyncio.sleep(10)
         await bot.change_presence(game=discord.Game(name='JOIN MY OFFICIAL SERVER!'))
         await asyncio.sleep(25)
