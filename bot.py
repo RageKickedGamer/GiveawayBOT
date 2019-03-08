@@ -15,7 +15,8 @@ startup_extensions = ["cogs.create", "cogs.start"]
 logs = discord.Object("521780872660254723")
 #Discord Bots List API
 dbltoken = os.environ.get('DBLT')
-url = "https://discordbots.org/api/bots/396464677032427530/stats"
+url = "https://discordbots.org/api/
+bots/396464677032427530/stats"
 headers = {"Authorization" : dbltoken}
 
 for extension in startup_extensions:
